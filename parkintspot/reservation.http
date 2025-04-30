@@ -1,0 +1,19 @@
+
+###Obtener una lista de plazas de estacionamientos
+GET http://localhost:8080/api/reservations
+
+### Obtener una plaza estacionamiento por id
+GET http://localhost:8080/api/reservations/1
+
+
+### POST: Crear reserva
+POST http://localhost:8080/api/v1/reservas
+Content-Type: application/json
+
+{
+  "idVehiculo": 1,
+  "idSpot": 2,
+  "startTime": "2024-05-01T10:00:00",
+  "endTime": "2024-05-01T11:00:00"
+}
+

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,12 +31,17 @@ public class ParkingSpotService {
     public List<ObtenerParkingSpotsDto> getAllparkingSpots() {
 
         List<ParkingSpot> parkingSpots = (List<ParkingSpot>) parkingSpotRepository.findAll();
-        return parkingSpots.stream()
-                .map(parkingSpot -> new ObtenerVehiclesDto(
-                        parkingSpot.getId(),
-                        parkingSpot.getCode(),
-                        parkingSpot.getAvailable()
-                )).collect(Collectors.toList());
+
+        List<ObtenerParkingSpotsDto> resultado = parkingSpots.stream()
+                .map(spot -> new ObtenerParkingSpotsDto(
+                        spot.getId(),
+                        spot.getCode(),
+                        spot.getAvailable()
+                        ))
+                .collect(Collectors.toList());
+        Collections.reverse(resultado);
+
+    return resultado;
 
     }
 

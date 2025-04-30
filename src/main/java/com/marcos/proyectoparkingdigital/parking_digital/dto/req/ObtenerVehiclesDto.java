@@ -15,6 +15,9 @@ public class ObtenerVehiclesDto {
         this.id = id;
     }
 
+    public ObtenerVehiclesDto(Long id, String code, int available) {
+    }
+
     public String getBrand() {
         return brand;
     }

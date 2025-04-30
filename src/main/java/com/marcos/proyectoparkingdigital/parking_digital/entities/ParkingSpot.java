@@ -46,13 +46,11 @@ public class ParkingSpot {
         this.code = code;
     }
 
-    public int isAvailable() {
+    public int getAvailable() {
         return available;
     }
 
     public void setAvailable(int available) {
         this.available = available;
     }
-
-
 }
