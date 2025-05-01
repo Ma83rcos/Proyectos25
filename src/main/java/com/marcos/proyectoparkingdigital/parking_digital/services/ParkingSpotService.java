@@ -30,7 +30,7 @@ public class ParkingSpotService {
 
         List<ParkingSpot> parkingSpots = (List<ParkingSpot>) parkingSpotRepository.findAll();
         return parkingSpots.stream()
-                .map(parkingSpot -> new ObtenerVehiclesDto(
+                .map(parkingSpot -> new ObtenerParkingSpotsDto(
                         parkingSpot.getId(),
                         parkingSpot.getCode(),
                         parkingSpot.getAvailable()
