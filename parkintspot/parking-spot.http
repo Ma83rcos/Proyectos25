@@ -11,7 +11,7 @@ POST http://localhost:8080/api/parking-spots
 Content-Type: application/json
 
 {
-  "code": "5A",
+  "code": "3A",
   "available": 2
 }
 

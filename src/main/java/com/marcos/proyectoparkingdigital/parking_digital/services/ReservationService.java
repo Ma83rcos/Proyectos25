@@ -1,5 +1,10 @@
 package com.marcos.proyectoparkingdigital.parking_digital.services;
 
+import com.marcos.proyectoparkingdigital.parking_digital.dto.req.ReservationRequestDto;
+import com.marcos.proyectoparkingdigital.parking_digital.dto.res.MensageResponseDto;
+import com.marcos.proyectoparkingdigital.parking_digital.dto.res.ReservationsResponse;
+import com.marcos.proyectoparkingdigital.parking_digital.dto.res.MensageResponseDto;
+
 import com.marcos.proyectoparkingdigital.parking_digital.entities.ParkingSpot;
 import com.marcos.proyectoparkingdigital.parking_digital.entities.Reservation;
 import com.marcos.proyectoparkingdigital.parking_digital.entities.Vehicle;
@@ -9,8 +14,11 @@ import com.marcos.proyectoparkingdigital.parking_digital.repositories.VehicleRep
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservationService {
@@ -27,9 +35,24 @@ public class ReservationService {
     }
 
     //Obtener todas las reservas
-    public List<Reservation> getAllReservations(){
-        return (List<Reservation>) reservationRepository.findAll();
+    public List<ReservationsResponse> getAllReservations() {
+        List<Reservation> reservations = (List<Reservation>) reservationRepository.findAll();
+
+        List<ReservationsResponse> resultado = reservations.stream()
+                .map(res -> new ReservationsResponse(
+                        res.getId(),
+                        res.getVehicle().getPlate(),
+                        res.getVehicle().getBrand(),
+                        res.getSpot().getCode(),
+                        res.getStartTime(),
+                        res.getEndTime()
+                ))
+                .collect(Collectors.toList());
+
+        Collections.reverse(resultado); // Opcional: mostrar los más recientes arriba
+        return resultado;
     }
+
 
     //Obtener una reserva por Id
     public Reservation getReservationfindById(Long id){
@@ -38,45 +61,67 @@ public class ReservationService {
     }
 
     //Crear una nueva reserva
-    public Reservation crearReservation(Reservation reservation){
-            // 1. Verificar si el vehículo está disponible
-            Optional<Vehicle> vehicleOptional = vehicleRepository.findById(reservation.getVehicle().getId());
-            if (!vehicleOptional.isPresent()) {
-                throw new IllegalArgumentException("El vehículo no existe.");
-            }
-            Vehicle vehicle = vehicleOptional.get();
-
-            // Verificar si el vehículo ya tiene una reserva en ese rango de tiempo.
-            List<Reservation> existingReservations = reservationRepository.findOverlappingReservations(vehicle,
-                                          reservation.getStartTime(), reservation.getEndTime());
-            if (!existingReservations.isEmpty()) {
-                throw new IllegalStateException("El vehículo ya tiene una reserva en ese rango de tiempo.");
-            }
-
-            // 2. Verificar si la plaza de estacionamiento está disponible.
-            Optional<ParkingSpot> parkingSpotOptional = spotRepository.findById(reservation.getSpot().getId());
-            if (!parkingSpotOptional.isPresent()) {
-                throw new IllegalArgumentException("La plaza de estacionamiento no existe.");
-            }
-            ParkingSpot parkingSpot = parkingSpotOptional.get();
-
-            // Verificar si la plaza de estacionamiento está disponible
-            // esta reservado o esta ocupado?
-            if (parkingSpot.isAvailable() == 2 || parkingSpot.isAvailable() == 3) {
-                throw new IllegalStateException("La plaza de estacionamiento no está disponible.");
-            }
-
-            // 3. Si todo está correcto, guardamos la reserva
-            reservation.setVehicle(vehicle);
-            reservation.setSpot(parkingSpot);
-
-            // Marcar la plaza como reservado
-            parkingSpot.setAvailable(2);
-            spotRepository.save(parkingSpot);
-
-            return reservationRepository.save(reservation); // Guardar la reserva
+    public MensageResponseDto crearReservation(ReservationRequestDto dto) {
+        // Buscar vehículo
+        Optional<Vehicle> vehicleOpt = vehicleRepository.findById(dto.getIdVehiculo());
+        if (vehicleOpt.isEmpty()) {
+            return new MensageResponseDto("Vehículo no encontrado", 404, "/api/v1/reservas", LocalDateTime.now(), null);
         }
+
+        // Buscar plaza
+        Optional<ParkingSpot> spotOpt = spotRepository.findById(dto.getIdSpot());
+        if (spotOpt.isEmpty()) {
+            return new MensageResponseDto("Plaza de estacionamiento no encontrada", 404, "/api/v1/reservas", LocalDateTime.now(), null);
+        }
+
+        Vehicle vehicle = vehicleOpt.get();
+        ParkingSpot spot = spotOpt.get();
+
+        // Validar solapamiento
+        boolean existeSolapamiento = reservationRepository
+                .existsByVehicleAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(
+                        vehicle, dto.getEndTime(), dto.getStartTime());
+        if (existeSolapamiento) {
+            return new MensageResponseDto("El vehículo ya tiene una reserva en ese horario", 409, "/api/v1/reservas", LocalDateTime.now(), null);
+        }
+
+        // Validar disponibilidad de la plaza
+        if (spot.getAvailable() == 2 || spot.getAvailable() == 3) {
+            return new MensageResponseDto("La plaza no está disponible", 409, "/api/v1/reservas", LocalDateTime.now(), null);
+        }
+
+        // Crear reserva
+        Reservation reserva = new Reservation();
+        reserva.setVehicle(vehicle);
+        reserva.setSpot(spot);
+        reserva.setStartTime(dto.getStartTime());
+        reserva.setEndTime(dto.getEndTime());
+
+        Reservation guardada = reservationRepository.save(reserva);
+
+        // Marcar plaza como reservada
+        spot.setAvailable(2);
+        spotRepository.save(spot);
+
+        // Construir DTO de respuesta
+        ReservationsResponse respuesta = new ReservationsResponse(
+                guardada.getId(),
+                vehicle.getPlate(),
+                vehicle.getBrand(),
+                spot.getCode(),
+                guardada.getStartTime(),
+                guardada.getEndTime()
+        );
+
+        return new MensageResponseDto(
+                "✅ Reserva creada correctamente",
+                201,
+                "/api/v1/reservas",
+                LocalDateTime.now(),
+                respuesta
+        );
     }
+}
 
 
 

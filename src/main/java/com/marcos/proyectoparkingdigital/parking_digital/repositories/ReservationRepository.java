@@ -22,4 +22,8 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
             @Param("endTime") LocalDateTime endTime
     );
 
+    boolean existsByVehicleAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(
+            Vehicle vehicle, LocalDateTime endTime, LocalDateTime startTime
+    );
+
 }

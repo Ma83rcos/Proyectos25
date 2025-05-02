@@ -54,4 +54,5 @@ public class ParkingSpot {
         this.available = available;
     }
 
+
 }
