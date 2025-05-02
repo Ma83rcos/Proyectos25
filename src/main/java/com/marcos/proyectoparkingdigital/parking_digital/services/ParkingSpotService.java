@@ -1,8 +1,8 @@
 package com.marcos.proyectoparkingdigital.parking_digital.services;
 
+
 import com.marcos.proyectoparkingdigital.parking_digital.dto.req.ActualizarParkingSpotDto;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.req.ObtenerParkingSpotsDto;
-import com.marcos.proyectoparkingdigital.parking_digital.dto.req.ObtenerVehiclesDto;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.req.RegistrarParkingSpotDto;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.res.MensageResponseDto;
 import com.marcos.proyectoparkingdigital.parking_digital.entities.ParkingSpot;
@@ -70,7 +70,7 @@ public class ParkingSpotService {
             parkingSpot.setAvailable(updateparkingSpotDto.getAvailable());
             return parkingSpotRepository.save(parkingSpot);
         }
-        return null;
+        return null; //retorna nulo si el vehiculo no existe
     }
 
     //Metodo para eliminar una plaza de estacionamiento por su id

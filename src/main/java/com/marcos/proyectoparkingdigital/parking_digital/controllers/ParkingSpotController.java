@@ -6,6 +6,7 @@ import com.marcos.proyectoparkingdigital.parking_digital.dto.req.RegistrarParkin
 import com.marcos.proyectoparkingdigital.parking_digital.dto.req.RegistrarVehicleDto;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.res.MensageResponseDto;
 import com.marcos.proyectoparkingdigital.parking_digital.entities.ParkingSpot;
+import com.marcos.proyectoparkingdigital.parking_digital.entities.Vehicle;
 import com.marcos.proyectoparkingdigital.parking_digital.services.ParkingSpotService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -53,7 +54,7 @@ public class ParkingSpotController {
     //Crear una nueva plaza de estaconamiento
     @PostMapping
     @Operation(summary = "crea una nueva plaza de estacionamiento", description = "crea una nueva plaza de estacionamiento con nuevo id")
-    public ResponseEntity<RegistrarParkingSpotDto> createParkingSpot(@RequestBody RegistrarParkingSpotDto spotDto){
+    public ResponseEntity<MensageResponseDto> createParkingSpot(@RequestBody RegistrarParkingSpotDto spotDto){
         return ResponseEntity.ok(parkingSpotService.createParkingSpot(spotDto));
 
     }
@@ -62,9 +63,12 @@ public class ParkingSpotController {
 
     @PutMapping("/{id}")
     @Operation(summary = "atualiza plaza estacionamiento", description = "actauliza la informacion de una plaza")
-    public ResponseEntity<ParkingSpot> modificarSpot(@PathVariable Long id, @RequestBody ActualizarParkingSpotDto updateDto) {
-        Optional<ParkingSpot> spot = parkingSpotService.updateParkingSpot(id, updateDto);
-        return spot.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ParkingSpot> modificarSpot(@PathVariable Long id, @RequestBody ActualizarParkingSpotDto updateParkingSpotDto) {
+        ParkingSpot updateParkingSpot = parkingSpotService.updateParkingSpot(id, updateParkingSpotDto);
+        if (updateParkingSpot == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updateParkingSpot);
     }
 
     //Eliminar una plaza de aparcamiento
