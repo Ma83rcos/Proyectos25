@@ -26,7 +26,7 @@ public class ParkingSpotController {
         this.parkingSpotService = parkingSpotService;
     }
 
-    //Obtener todas las plazas de estacionamiento
+    //Obtener todas las plazas de estacionamiento totales
     @Operation(summary = "Obtener todas las plazas de estacionamiento",
             description ="api creada con funciones base de springboot",
             deprecated = false)
