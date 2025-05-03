@@ -3,7 +3,6 @@ package com.marcos.proyectoparkingdigital.parking_digital.controllers;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.req.*;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.res.MensageResponseDto;
 import com.marcos.proyectoparkingdigital.parking_digital.entities.ParkingSpot;
-import com.marcos.proyectoparkingdigital.parking_digital.entities.Vehicle;
 import com.marcos.proyectoparkingdigital.parking_digital.services.ParkingSpotService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

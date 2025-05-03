@@ -11,13 +11,17 @@ com\marcos\proyectoparkingdigital\parking_digital\services\VehicleService.class
 com\marcos\proyectoparkingdigital\parking_digital\services\ParkingSpotService.class
 com\marcos\proyectoparkingdigital\parking_digital\dto\req\ObtenerVehicleIdDto.class
 com\marcos\proyectoparkingdigital\parking_digital\repositories\ReservationRepository.class
+com\marcos\proyectoparkingdigital\parking_digital\dto\res\ReservationsResponse.class
 com\marcos\proyectoparkingdigital\parking_digital\entities\ParkingSpot.class
 com\marcos\proyectoparkingdigital\parking_digital\dto\req\RegistrarVehicleDto.class
+com\marcos\proyectoparkingdigital\parking_digital\controllers\ReservationController.class
 com\marcos\proyectoparkingdigital\parking_digital\dto\req\ActualizarParkingSpotDto.class
 com\marcos\proyectoparkingdigital\parking_digital\dto\req\ObtenerParkingSpotsDto.class
 com\marcos\proyectoparkingdigital\parking_digital\dto\req\ActualizarVehicleDto.class
+com\marcos\proyectoparkingdigital\parking_digital\services\ReservationService.class
 com\marcos\proyectoparkingdigital\parking_digital\dto\req\ObtenerVehiclesDto.class
 com\marcos\proyectoparkingdigital\parking_digital\entities\Vehicle.class
 com\marcos\proyectoparkingdigital\parking_digital\repositories\ParkingSpotRepository.class
 com\marcos\proyectoparkingdigital\parking_digital\config\CorsConfig$1.class
+com\marcos\proyectoparkingdigital\parking_digital\dto\req\ReservationRequestDto.class
 com\marcos\proyectoparkingdigital\parking_digital\repositories\VehicleRepository.class

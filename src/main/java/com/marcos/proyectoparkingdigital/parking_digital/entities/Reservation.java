@@ -27,6 +27,9 @@ public class Reservation {
     @Column(name="price_per_hour")
     private BigDecimal pricePerHour;
 
+    @Column(name="status", nullable = false)
+    private String status;
+
     @ManyToOne
     @JoinColumn(name = "spot_id", nullable = false)
     private ParkingSpot spot;
@@ -34,13 +37,23 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(Long id, Vehicle vehicle, LocalDateTime startTime, LocalDateTime endTime, BigDecimal pricePerHour, ParkingSpot spot) {
+    public Reservation(Long id, Vehicle vehicle, LocalDateTime startTime, LocalDateTime endTime,
+                       BigDecimal pricePerHour, String status, ParkingSpot spot) {
         this.id = id;
         this.vehicle = vehicle;
         this.startTime = startTime;
         this.endTime = endTime;
         this.pricePerHour = pricePerHour;
+        this.status = status;
         this.spot = spot;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public BigDecimal getPricePerHour() {

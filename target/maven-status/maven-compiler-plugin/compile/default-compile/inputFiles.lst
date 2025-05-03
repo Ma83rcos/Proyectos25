@@ -1,6 +1,7 @@
 C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\config\CorsConfig.java
 C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\config\OpenApiConfig.java
 C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\controllers\ParkingSpotController.java
+C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\controllers\ReservationController.java
 C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\controllers\VehicleController.java
 C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\dto\req\ActualizarParkingSpotDto.java
 C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\dto\req\ActualizarVehicleDto.java
@@ -10,7 +11,9 @@ C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectopa
 C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\dto\req\ObtenerVehiclesDto.java
 C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\dto\req\RegistrarParkingSpotDto.java
 C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\dto\req\RegistrarVehicleDto.java
+C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\dto\req\ReservationRequestDto.java
 C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\dto\res\MensageResponseDto.java
+C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\dto\res\ReservationsResponse.java
 C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\entities\ParkingSpot.java
 C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\entities\Reservation.java
 C:\Users\PC\Desktop\Proyecto\parking_digital\src\main\java\com\marcos\proyectoparkingdigital\parking_digital\entities\Vehicle.java

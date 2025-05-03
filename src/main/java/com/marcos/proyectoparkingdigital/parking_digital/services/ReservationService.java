@@ -3,8 +3,6 @@ package com.marcos.proyectoparkingdigital.parking_digital.services;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.req.ReservationRequestDto;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.res.MensageResponseDto;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.res.ReservationsResponse;
-import com.marcos.proyectoparkingdigital.parking_digital.dto.res.MensageResponseDto;
-
 import com.marcos.proyectoparkingdigital.parking_digital.entities.ParkingSpot;
 import com.marcos.proyectoparkingdigital.parking_digital.entities.Reservation;
 import com.marcos.proyectoparkingdigital.parking_digital.entities.Vehicle;
@@ -121,7 +119,45 @@ public class ReservationService {
                 respuesta
         );
     }
+    //Cancelar una reserva de estacionamiento
+    public MensageResponseDto cancelarReserva(Long id){
+        Optional<Reservation> resrvaCanc = reservationRepository.findById(id);
+        if(resrvaCanc.isEmpty()){
+            return new MensageResponseDto(
+                    "Reserva no encontrada",
+                    404,
+                    "/api/reservations" + id + "/cancelar",
+                    LocalDateTime.now(),
+                    null);
+        }
+        Reservation reserva = resrvaCanc.get();
+        if("cancelada".equalsIgnoreCase(reserva.getStatus())){
+            return new MensageResponseDto(
+                    "La reserva ya esta cancelada",
+                    400,
+                    "/api/reservations/" + id + "/cancelar",
+                    LocalDateTime.now(),
+                    null
+            );
+        }
+        reserva.setStatus("cancelada");
+        reservationRepository.save(reserva);
+        //liberar plaza de estacionamiento
+        ParkingSpot spot = reserva.getSpot();
+        spot.setAvailable(1);  //1 = disponible
+        spotRepository.save(spot);
+        //respuesta final
+        return  new MensageResponseDto(
+                "✅ Reserva cancelada con exito",
+                200,
+                "api/resrvations/" + id + "/cancelar",
+                LocalDateTime.now(),
+                null
+        );
+    }
+
 }
+
 
 
 

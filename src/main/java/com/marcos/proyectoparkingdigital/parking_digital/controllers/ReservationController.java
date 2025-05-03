@@ -62,6 +62,14 @@ public class ReservationController {
 
     }
 
+    //Cancelar una reserva de estacionamiento
+    @PutMapping("/{id}/cancelar")
+    @Operation(summary = "cancelar una reserva", description = "cancela la reserva y deja libre la plaza")
+    public ResponseEntity<MensageResponseDto> cancelarReserva(@PathVariable Long id){
+        MensageResponseDto response = reservationService.cancelarReserva(id);
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
+
 
 
 
