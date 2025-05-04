@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 public class MensageResponseDto {
 
     private String mensaje;
-    private int status;
     private int codigo;
     private String ruta;
     private LocalDateTime fecha;
@@ -24,13 +23,6 @@ public class MensageResponseDto {
         this.data = data;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
     public String getMensaje() {
         return mensaje;

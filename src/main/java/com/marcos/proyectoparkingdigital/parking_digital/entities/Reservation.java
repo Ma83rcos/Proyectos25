@@ -28,7 +28,9 @@ public class Reservation {
     private BigDecimal pricePerHour;
 
     @Column(name="status", nullable = false)
-    private String status;
+    private int status;
+    // 1 registro activo
+    // 0 registro eliminado - desactivado
 
     @ManyToOne
     @JoinColumn(name = "spot_id", nullable = false)
@@ -38,7 +40,7 @@ public class Reservation {
     }
 
     public Reservation(Long id, Vehicle vehicle, LocalDateTime startTime, LocalDateTime endTime,
-                       BigDecimal pricePerHour, String status, ParkingSpot spot) {
+                       BigDecimal pricePerHour, int status, ParkingSpot spot) {
         this.id = id;
         this.vehicle = vehicle;
         this.startTime = startTime;
@@ -48,11 +50,11 @@ public class Reservation {
         this.spot = spot;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

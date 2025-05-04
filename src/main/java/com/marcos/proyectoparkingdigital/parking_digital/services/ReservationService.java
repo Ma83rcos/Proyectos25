@@ -94,6 +94,7 @@ public class ReservationService {
         reserva.setSpot(spot);
         reserva.setStartTime(dto.getStartTime());
         reserva.setEndTime(dto.getEndTime());
+        reserva.setStatus(1);// reserva activa
 
         Reservation guardada = reservationRepository.save(reserva);
 
@@ -131,7 +132,8 @@ public class ReservationService {
                     null);
         }
         Reservation reserva = resrvaCanc.get();
-        if("cancelada".equalsIgnoreCase(reserva.getStatus())){
+        // preguntamos si el satsu ya es 0, es decir si ya esta cancelada
+        if(reserva.getStatus() == 0){
             return new MensageResponseDto(
                     "La reserva ya esta cancelada",
                     400,
@@ -140,7 +142,8 @@ public class ReservationService {
                     null
             );
         }
-        reserva.setStatus("cancelada");
+        // ponemos setStatus 0 para cancelar esta reserva
+        reserva.setStatus(0);
         reservationRepository.save(reserva);
         //liberar plaza de estacionamiento
         ParkingSpot spot = reserva.getSpot();
