@@ -70,6 +70,14 @@ public class ReservationController {
         return ResponseEntity.status(response.getCodigo()).body(response);
     }
 
+    /// http:localhost:8080/api/reservations/{id}
+    //Modificar una reserva
+    @PutMapping("/{id}")
+    @Operation(summary = "modificar una reserva ya creada", description = "Modifica los valores de una reserva ya creada")
+    public ResponseEntity<MensageResponseDto> modificarReserva(@RequestBody ReservationRequestDto reservationRequestDto, @PathVariable Long id){
+        MensageResponseDto response = reservationService.modificarReserva(reservationRequestDto, id);
+        return ResponseEntity.status(response.getCodigo()).body(response);
+    }
 
 
 

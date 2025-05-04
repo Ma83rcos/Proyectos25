@@ -11,6 +11,7 @@ import com.marcos.proyectoparkingdigital.parking_digital.repositories.Reservatio
 import com.marcos.proyectoparkingdigital.parking_digital.repositories.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -158,6 +159,58 @@ public class ReservationService {
                 null
         );
     }
+
+
+    //Crear una nueva reserva
+    public MensageResponseDto modificarReserva(ReservationRequestDto reservationRequestDto, Long id) {
+        // Buscar vehículo
+        Optional<Vehicle> vehicleOpt = vehicleRepository.findById(reservationRequestDto.getIdVehiculo());
+        if (vehicleOpt.isEmpty()) {
+            return new MensageResponseDto("Vehículo no encontrado", 404, "/api/v1/reservas", LocalDateTime.now(), null);
+        }
+
+        // Buscar plaza
+        Optional<ParkingSpot> spotOpt = spotRepository.findById(reservationRequestDto.getIdSpot());
+        if (spotOpt.isEmpty()) {
+            return new MensageResponseDto("Plaza de estacionamiento no encontrada", 404, "/api/v1/reservas", LocalDateTime.now(), null);
+        }
+
+        Vehicle vehicle = vehicleOpt.get();
+        ParkingSpot spot = spotOpt.get();
+
+        Optional<Reservation>reservationFromId  = reservationRepository.findById(id);
+
+        Reservation reservation = reservationFromId.get();
+        reservation.setVehicle(vehicle);
+        reservation.setSpot(spot);
+        reservation.setEndTime(reservationRequestDto.getEndTime());
+        reservation.setStartTime(reservationRequestDto.getStartTime());
+
+        reservationRepository.save(reservation);
+
+
+        Reservation guardada = reservationRepository.save(reservation);
+
+
+        // Construir DTO de respuesta
+        ReservationsResponse respuesta = new ReservationsResponse(
+                guardada.getId(),
+                vehicle.getPlate(),
+                vehicle.getBrand(),
+                spot.getCode(),
+                guardada.getStartTime(),
+                guardada.getEndTime()
+        );
+
+        return new MensageResponseDto(
+                "✅ Reserva modificada correctamente",
+                201,
+                "/api/v1/reservas",
+                LocalDateTime.now(),
+                respuesta
+        );
+    }
+
 
 }
 
