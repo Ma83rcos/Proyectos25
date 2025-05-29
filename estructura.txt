@@ -1,0 +1,191 @@
+Listado de rutas de carpetas
+El número de serie del volumen es 3232-CFDA
+C:.
+¦   .gitignore
+¦   estructura.txt
+¦   HELP.md
+¦   mvnw
+¦   mvnw.cmd
+¦   pom.xml
+¦   Readme.md
+¦   
++---.idea
+¦   ¦   .gitignore
+¦   ¦   compiler.xml
+¦   ¦   encodings.xml
+¦   ¦   jarRepositories.xml
+¦   ¦   misc.xml
+¦   ¦   vcs.xml
+¦   ¦   workspace.xml
+¦   ¦   
+¦   +---shelf
+¦       ¦   Uncommitted_changes_before_Update_at_01_05_2025_23_08__Changes_.xml
+¦       ¦   
+¦       +---Uncommitted_changes_before_Update_at_01_05_2025_23_08_[Changes]
+¦               ActualizarParkingSpotDto.class
+¦               ActualizarVehicleDto.class
+¦               MensageResponseDto.class
+¦               ObtenerParkingSpotIdDto.class
+¦               ObtenerParkingSpotsDto.class
+¦               ObtenerVehicleIdDto.class
+¦               ObtenerVehiclesDto.class
+¦               ParkingSpot.class
+¦               ParkingSpotController.class
+¦               ParkingSpotService.class
+¦               RegistrarParkingSpotDto.class
+¦               ReservationController.class
+¦               ReservationRepository.class
+¦               ReservationRequestDto.class
+¦               ReservationService.class
+¦               ReservationsResponse.class
+¦               shelved.patch
+¦               VehicleController.class
+¦               VehicleService.class
+¦               
++---parking_digital
++---parkintspot
+¦       parking-spot.http
+¦       reservation.http
+¦       
++---src
+¦   +---main
+¦   ¦   +---java
+¦   ¦   ¦   +---com
+¦   ¦   ¦       +---marcos
+¦   ¦   ¦           +---proyectoparkingdigital
+¦   ¦   ¦               +---parking_digital
+¦   ¦   ¦                   ¦   ParkingDigitalApplication.java
+¦   ¦   ¦                   ¦   
+¦   ¦   ¦                   +---config
+¦   ¦   ¦                   ¦       CorsConfig.java
+¦   ¦   ¦                   ¦       OpenApiConfig.java
+¦   ¦   ¦                   ¦       SwaggerConfig.java
+¦   ¦   ¦                   ¦       
+¦   ¦   ¦                   +---controllers
+¦   ¦   ¦                   ¦       ParkingSpotController.java
+¦   ¦   ¦                   ¦       ReservationController.java
+¦   ¦   ¦                   ¦       VehicleController.java
+¦   ¦   ¦                   ¦       
+¦   ¦   ¦                   +---dto
+¦   ¦   ¦                   ¦   +---req
+¦   ¦   ¦                   ¦   ¦       ActualizarParkingSpotDto.java
+¦   ¦   ¦                   ¦   ¦       ActualizarVehicleDto.java
+¦   ¦   ¦                   ¦   ¦       ObtenerParkingSpotIdDto.java
+¦   ¦   ¦                   ¦   ¦       ObtenerParkingSpotsDto.java
+¦   ¦   ¦                   ¦   ¦       ObtenerVehicleIdDto.java
+¦   ¦   ¦                   ¦   ¦       ObtenerVehiclesDto.java
+¦   ¦   ¦                   ¦   ¦       RegistrarParkingSpotDto.java
+¦   ¦   ¦                   ¦   ¦       RegistrarVehicleDto.java
+¦   ¦   ¦                   ¦   ¦       ReservationRequestDto.java
+¦   ¦   ¦                   ¦   ¦       
+¦   ¦   ¦                   ¦   +---res
+¦   ¦   ¦                   ¦           MensageResponseDto.java
+¦   ¦   ¦                   ¦           ReservationsResponse.java
+¦   ¦   ¦                   ¦           
+¦   ¦   ¦                   +---entities
+¦   ¦   ¦                   ¦       ParkingSpot.java
+¦   ¦   ¦                   ¦       Reservation.java
+¦   ¦   ¦                   ¦       Vehicle.java
+¦   ¦   ¦                   ¦       
+¦   ¦   ¦                   +---repositories
+¦   ¦   ¦                   ¦       ParkingSpotRepository.java
+¦   ¦   ¦                   ¦       ReservationRepository.java
+¦   ¦   ¦                   ¦       VehicleRepository.java
+¦   ¦   ¦                   ¦       
+¦   ¦   ¦                   +---services
+¦   ¦   ¦                           ParkingSpotService.java
+¦   ¦   ¦                           ReservationService.java
+¦   ¦   ¦                           VehicleService.java
+¦   ¦   ¦                           
+¦   ¦   +---resources
+¦   ¦           application.properties
+¦   ¦           application.yml
+¦   ¦           
+¦   +---test
+¦       +---java
+¦           +---com
+¦               +---marcos
+¦                   +---proyectoparkingdigital
+¦                       +---parking_digital
+¦                               ParkingDigitalApplicationTests.java
+¦                               
++---target
+    +---classes
+    ¦   ¦   application.properties
+    ¦   ¦   application.yml
+    ¦   ¦   
+    ¦   +---com
+    ¦       +---marcos
+    ¦           +---proyectoparkingdigital
+    ¦               +---parking_digital
+    ¦                   ¦   ParkingDigitalApplication.class
+    ¦                   ¦   
+    ¦                   +---config
+    ¦                   ¦       CorsConfig$1.class
+    ¦                   ¦       CorsConfig.class
+    ¦                   ¦       OpenApiConfig.class
+    ¦                   ¦       SwaggerConfig.class
+    ¦                   ¦       
+    ¦                   +---controllers
+    ¦                   ¦       ParkingSpotController.class
+    ¦                   ¦       ReservationController.class
+    ¦                   ¦       VehicleController.class
+    ¦                   ¦       
+    ¦                   +---dto
+    ¦                   ¦   +---req
+    ¦                   ¦   ¦       ActualizarParkingSpotDto.class
+    ¦                   ¦   ¦       ActualizarVehicleDto.class
+    ¦                   ¦   ¦       ObtenerParkingSpotIdDto.class
+    ¦                   ¦   ¦       ObtenerParkingSpotsDto.class
+    ¦                   ¦   ¦       ObtenerVehicleIdDto.class
+    ¦                   ¦   ¦       ObtenerVehiclesDto.class
+    ¦                   ¦   ¦       RegistrarParkingSpotDto.class
+    ¦                   ¦   ¦       RegistrarVehicleDto.class
+    ¦                   ¦   ¦       ReservationRequestDto.class
+    ¦                   ¦   ¦       
+    ¦                   ¦   +---res
+    ¦                   ¦           MensageResponseDto.class
+    ¦                   ¦           ReservationsResponse.class
+    ¦                   ¦           
+    ¦                   +---entities
+    ¦                   ¦       ParkingSpot.class
+    ¦                   ¦       Reservation.class
+    ¦                   ¦       Vehicle.class
+    ¦                   ¦       
+    ¦                   +---repositories
+    ¦                   ¦       ParkingSpotRepository.class
+    ¦                   ¦       ReservationRepository.class
+    ¦                   ¦       VehicleRepository.class
+    ¦                   ¦       
+    ¦                   +---services
+    ¦                           ParkingSpotService.class
+    ¦                           ReservationService.class
+    ¦                           VehicleService.class
+    ¦                           
+    +---generated-sources
+    ¦   +---annotations
+    +---generated-test-sources
+    ¦   +---test-annotations
+    +---maven-status
+    ¦   +---maven-compiler-plugin
+    ¦       +---compile
+    ¦       ¦   +---default-compile
+    ¦       ¦           createdFiles.lst
+    ¦       ¦           inputFiles.lst
+    ¦       ¦           
+    ¦       +---testCompile
+    ¦           +---default-testCompile
+    ¦                   createdFiles.lst
+    ¦                   inputFiles.lst
+    ¦                   
+    +---surefire-reports
+    ¦       com.marcos.proyectoparkingdigital.parking_digital.ParkingDigitalApplicationTests.txt
+    ¦       TEST-com.marcos.proyectoparkingdigital.parking_digital.ParkingDigitalApplicationTests.xml
+    ¦       
+    +---test-classes
+        +---com
+            +---marcos
+                +---proyectoparkingdigital
+                    +---parking_digital
+                            ParkingDigitalApplicationTests.class
+                            
