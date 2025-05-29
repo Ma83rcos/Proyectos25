@@ -11,7 +11,6 @@ import com.marcos.proyectoparkingdigital.parking_digital.repositories.Reservatio
 import com.marcos.proyectoparkingdigital.parking_digital.repositories.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -54,23 +53,42 @@ public class ReservationService {
 
 
     //Obtener una reserva por Id
-    public Reservation getReservationfindById(Long id){
+    public ReservationRequestDto getReservationfindById(Long id){
          Optional<Reservation> reservation = reservationRepository.findById(id);
-         return reservation.orElse(null);
+         Reservation reservaobtenida = reservation.get();
+
+
+        ReservationRequestDto response = new ReservationRequestDto();
+        response.setIdVehiculo(reservaobtenida.getId());
+        response.setIdSpot(reservaobtenida.getSpot().getId());
+        response.setStartTime(reservaobtenida.getStartTime());
+        response.setEndTime(reservaobtenida.getEndTime());
+
+         return response;
     }
 
     //Crear una nueva reserva
     public MensageResponseDto crearReservation(ReservationRequestDto dto) {
         // Buscar vehículo
+        // Null pointer Exception
         Optional<Vehicle> vehicleOpt = vehicleRepository.findById(dto.getIdVehiculo());
         if (vehicleOpt.isEmpty()) {
-            return new MensageResponseDto("Vehículo no encontrado", 404, "/api/v1/reservas", LocalDateTime.now(), null);
+            return new MensageResponseDto("Vehículo no encontrado",
+                    404,
+                    "/api/v1/reservas",
+                    LocalDateTime.now(),
+                    null);
         }
 
         // Buscar plaza
         Optional<ParkingSpot> spotOpt = spotRepository.findById(dto.getIdSpot());
         if (spotOpt.isEmpty()) {
-            return new MensageResponseDto("Plaza de estacionamiento no encontrada", 404, "/api/v1/reservas", LocalDateTime.now(), null);
+            return new MensageResponseDto(
+                "Plaza de estacionamiento no encontrada",
+                404,
+                "/api/v1/reservas",
+                LocalDateTime.now(),
+                null);
         }
 
         Vehicle vehicle = vehicleOpt.get();
@@ -97,29 +115,36 @@ public class ReservationService {
         reserva.setEndTime(dto.getEndTime());
         reserva.setStatus(1);// reserva activa
 
-        Reservation guardada = reservationRepository.save(reserva);
+        Reservation reservaguardada = reservationRepository.save(reserva);
 
         // Marcar plaza como reservada
         spot.setAvailable(2);
         spotRepository.save(spot);
 
         // Construir DTO de respuesta
-        ReservationsResponse respuesta = new ReservationsResponse(
-                guardada.getId(),
+//        private Long idReserva;
+//        private String placaVehiculo;
+//        private String marcaVehiculo;
+//        private String codigoPlaza;
+//        private LocalDateTime inicio;
+//        private LocalDateTime fin;
+        ReservationsResponse reservationsResponse = new ReservationsResponse(
+                reservaguardada.getId(),
                 vehicle.getPlate(),
                 vehicle.getBrand(),
                 spot.getCode(),
-                guardada.getStartTime(),
-                guardada.getEndTime()
+                reservaguardada.getStartTime(),
+                reservaguardada.getEndTime()
         );
 
-        return new MensageResponseDto(
+        MensageResponseDto response = new MensageResponseDto(
                 "✅ Reserva creada correctamente",
                 201,
                 "/api/v1/reservas",
                 LocalDateTime.now(),
-                respuesta
+                reservationsResponse
         );
+        return response;
     }
     //Cancelar una reserva de estacionamiento
     public MensageResponseDto cancelarReserva(Long id){

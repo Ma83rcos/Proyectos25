@@ -46,12 +46,12 @@ public class ReservationController {
     //Obtener una plaza estacionamiento por id
     @Operation(summary = "Obtener reservas por id", description = "Retorna la reserva por su id")
     @GetMapping("/{id}")
-    public ResponseEntity <Reservation> getParkingSpotById(@PathVariable Long id){
-        Reservation reservation = reservationService.getReservationfindById(id);
-        if(reservation == null){
+    public ResponseEntity <ReservationRequestDto> getParkingSpotById(@PathVariable Long id){
+        ReservationRequestDto reservationreqdto = reservationService.getReservationfindById(id);
+        if(reservationreqdto == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(reservation, HttpStatus.OK);
+        return new ResponseEntity<>(reservationreqdto, HttpStatus.OK);
     }
 
     //Crear una nueva plaza de estaconamiento

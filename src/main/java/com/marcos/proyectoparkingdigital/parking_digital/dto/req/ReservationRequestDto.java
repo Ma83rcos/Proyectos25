@@ -12,10 +12,14 @@ import java.time.LocalDateTime;
 public class ReservationRequestDto {
 
 
-    private Long idVehiculo;
-    private Long idSpot;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private Long idVehiculo; // tabla vehiculos
+    private Long idSpot;     // tabla de las plazas
+    private LocalDateTime startTime; // atributos de tabla de las reservas
+    private LocalDateTime endTime;   // atributos de tabla de las reservas
+
+    public ReservationRequestDto() {
+
+    }
 
     public Long getIdVehiculo() {
         return idVehiculo;

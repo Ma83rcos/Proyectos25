@@ -14,4 +14,3 @@ spring:
     show-sql: true
     database: postgresql
     generate-ddl: true
-
