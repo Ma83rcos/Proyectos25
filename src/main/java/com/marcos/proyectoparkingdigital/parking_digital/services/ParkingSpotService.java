@@ -25,20 +25,15 @@ public class ParkingSpotService {
     public ParkingSpotService(ParkingSpotRepository parkingSpotRepository) {
         this.parkingSpotRepository = parkingSpotRepository;
     }
+// convertir de DTO:
+    1
+    2
+    4
 
-    // encapsulamiento == public
-    // externa o interna == externa
-    // tipo de dato == List<Dtos>
-    // nombre de la funcion == getAllparkingSpots
-    // parametros (tipo_de_dato parametro) == sin parametros ()
-
-    //Metodo para obtener todas las plazas de estacionamiento parking
     public List<ObtenerParkingSpotsDto> getAllparkingSpots() {
-                                        // parseo
-        // Integer 10
-        // Double 10.00
 
         List<ParkingSpot> parkingSpots = (List<ParkingSpot>) parkingSpotRepository.findAll();
+
 
         List<ObtenerParkingSpotsDto> resultado = parkingSpots.stream()
                 .map(spot -> new ObtenerParkingSpotsDto(
