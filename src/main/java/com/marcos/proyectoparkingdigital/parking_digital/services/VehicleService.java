@@ -7,6 +7,7 @@ import com.marcos.proyectoparkingdigital.parking_digital.dto.req.RegistrarVehicl
 import com.marcos.proyectoparkingdigital.parking_digital.dto.res.MensageResponseDto;
 import com.marcos.proyectoparkingdigital.parking_digital.entities.Vehicle;
 import com.marcos.proyectoparkingdigital.parking_digital.repositories.VehicleRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class VehicleService {
 
@@ -54,6 +56,22 @@ public class VehicleService {
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand(vehicleDto.getBrand());
         vehicle.setPlate(vehicleDto.getPlate());
+        // if valores vacios - nulos
+        if (vehicle.getBrand() == null || vehicle.getBrand().isEmpty() || vehicle.getPlate() == null || vehicle.getPlate().isEmpty()) {
+            log.error("El vehiculo no puede tener campos vacíos o nulos");
+            return new MensageResponseDto(
+                    "El vehiculo no puede tener campos vacíos o nulos",
+                    400,
+                    "servicio/vehiculo",
+                    LocalDateTime.now(),
+                    null
+            );
+        }
+
+        // if registro duplicado -> plate debe ser unico en neustra db
+
+
+
         Vehicle vehicleGuardado = vehicleRepository.save(vehicle);
         MensageResponseDto response = new MensageResponseDto(
                 "vehiculo creado",
@@ -63,6 +81,9 @@ public class VehicleService {
                 vehicleGuardado
         );
         return response;
+
+
+
     }
 
     // Método para actualizar un vehículo existente

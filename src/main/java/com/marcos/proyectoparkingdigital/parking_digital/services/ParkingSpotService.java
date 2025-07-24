@@ -26,9 +26,7 @@ public class ParkingSpotService {
         this.parkingSpotRepository = parkingSpotRepository;
     }
 // convertir de DTO:
-    1
-    2
-    4
+
 
     public List<ObtenerParkingSpotsDto> getAllparkingSpots() {
 

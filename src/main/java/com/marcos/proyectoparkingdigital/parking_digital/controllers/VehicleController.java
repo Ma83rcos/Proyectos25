@@ -30,9 +30,7 @@ public class VehicleController {
 
     //Metodo para obtener todos los vehiculos
     @Operation(summary = "obtener todos los vehuculos",
-            description = "Retorna lista de todos los vehiculos",
-            deprecated = true,
-            tags = "obsoleto")
+            description = "Retorna lista de todos los vehiculos")
     @GetMapping
     public ResponseEntity<List<ObtenerVehiclesDto>>getAllVehicles(){
         List<ObtenerVehiclesDto>vehicles = vehicleService.getAllVehicles();
