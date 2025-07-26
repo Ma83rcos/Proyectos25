@@ -25,11 +25,15 @@ public class ParkingSpotService {
     public ParkingSpotService(ParkingSpotRepository parkingSpotRepository) {
         this.parkingSpotRepository = parkingSpotRepository;
     }
+// convertir de DTO:
+    1
+    2
+    4
 
-    //Metodo para obtener todas las plazas de estacionamiento parking
     public List<ObtenerParkingSpotsDto> getAllparkingSpots() {
 
         List<ParkingSpot> parkingSpots = (List<ParkingSpot>) parkingSpotRepository.findAll();
+
 
         List<ObtenerParkingSpotsDto> resultado = parkingSpots.stream()
                 .map(spot -> new ObtenerParkingSpotsDto(
@@ -51,11 +55,22 @@ public class ParkingSpotService {
 
     }
 
+    // encapsulamiento == public
+    // externa o interna == externa
+    // tipo de dato == MensageResponseDto, Objeto
+    // nombre de la funcion == createParkingSpot
+    // parametros (tipo_de_dato parametro) == sin parametros ()
+
+
     //Metodo para crear una nueva plaza de estacionamiento
     public MensageResponseDto createParkingSpot(RegistrarParkingSpotDto spotDto) {
         ParkingSpot parkingSpot = new ParkingSpot();
         parkingSpot.setCode(spotDto.getCode());
         parkingSpot.setAvailable(spotDto.getAvailable());
+
+        //Repositorio
+
+        // Variable = <- '55'
         ParkingSpot savedSpot = parkingSpotRepository.save(parkingSpot);
 
                 return new MensageResponseDto(
@@ -67,16 +82,41 @@ public class ParkingSpotService {
         );
     }
 
+    // encapsulamiento == public
+    // externa o interna == externa
+    // tipo de dato == ResponseEntity, ParkingSpot Objeto
+    // nombre de la funcion == updateParkingSpot
+    // parametros (tipo_de_dato parametro) (Long id, Dto Objeto)
+
+
+
     //Actualizar una plaza  estacionamiento existente
-    public ParkingSpot updateParkingSpot(Long id, ActualizarParkingSpotDto updateparkingSpotDto) {
-        Optional<ParkingSpot>parkingSpotOptional = parkingSpotRepository.findById(id);
+    public MensageResponseDto updateParkingSpot(Long id, ActualizarParkingSpotDto updateparkingSpotDto) {
+        Optional<ParkingSpot> parkingSpotOptional = parkingSpotRepository.findById(id);
         if (parkingSpotOptional.isPresent()){
             ParkingSpot parkingSpot = parkingSpotOptional.get();
             parkingSpot.setCode(updateparkingSpotDto.getCode());
             parkingSpot.setAvailable(updateparkingSpotDto.getAvailable());
-            return parkingSpotRepository.save(parkingSpot);
+            ParkingSpot spotEditada = parkingSpotRepository.save(parkingSpot);
+
+            MensageResponseDto respuesta = new MensageResponseDto(
+                    "plaza modificada correctamente",
+                    200,
+                    "servicio/plaza",
+                    LocalDateTime.now(),
+                    spotEditada
+            );
+
+            return respuesta;
+
         }
-        return null;
+        return new MensageResponseDto(
+                "Plata no encontrada",
+                200,
+                "servicio/plaza",
+                LocalDateTime.now(),
+                null
+        );
     }
 
     //Metodo para eliminar una plaza de estacionamiento por su id

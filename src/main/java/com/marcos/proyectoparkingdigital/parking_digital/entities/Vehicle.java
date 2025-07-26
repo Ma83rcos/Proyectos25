@@ -1,12 +1,19 @@
 package com.marcos.proyectoparkingdigital.parking_digital.entities;
 
 import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name="vehicles")
+@Component
+@Getter
+@Setter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class Vehicle {
 
     @Id

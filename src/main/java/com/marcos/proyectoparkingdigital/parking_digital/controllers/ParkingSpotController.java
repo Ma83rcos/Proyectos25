@@ -56,10 +56,19 @@ public class ParkingSpotController {
 
     //Actualizar una plaza de estacionamiento exixtente
 
-    @PutMapping("/{id}")
+    // encapsulamiento == public
+    // externa o interna == externa
+    // tipo de dato == ResponseEntity, ParkingSpot Objeto
+    // nombre de la funcion == modificarSpot
+    // parametros (tipo_de_dato parametro) (Long id, Dto Objeto)
+
+
+    @PutMapping("/{id}") //que vamos editar?
     @Operation(summary = "atualiza plaza estacionamiento", description = "actauliza la informacion de una plaza")
-    public ResponseEntity<ParkingSpot> modificarSpot(@PathVariable Long id, @RequestBody ActualizarParkingSpotDto updateParkingSpotDto) {
-        ParkingSpot updateParkingSpot = parkingSpotService.updateParkingSpot(id, updateParkingSpotDto);
+    public ResponseEntity<MensageResponseDto> modificarSpot(@PathVariable Long id,
+                                                            // con que datos vamos a reemplzaar?
+                                                            @RequestBody ActualizarParkingSpotDto updateParkingSpotDto) {
+        MensageResponseDto updateParkingSpot = parkingSpotService.updateParkingSpot(id, updateParkingSpotDto);
         if (updateParkingSpot == null) {
             return ResponseEntity.notFound().build();
         }

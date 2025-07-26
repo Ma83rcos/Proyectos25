@@ -14,7 +14,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Replace with your API endpoint
-                        .allowedOrigins("*")
+                        .allowedOrigins("*", "http://localhost:3000")
                         //                        .allowedOrigins("https://frontendgrado.netlify.app")
                         .allowedMethods("GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS")
                         .allowedHeaders("*")

@@ -1,5 +1,7 @@
 package com.marcos.proyectoparkingdigital.parking_digital.dto.req;
 
+import jakarta.validation.constraints.NotBlank;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

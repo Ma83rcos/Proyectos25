@@ -15,3 +15,19 @@ Content-Type: application/json
   "available": 2
 }
 
+###
+###
+
+
+{
+  "message": "Se modifico el spot correctamente",
+  "path": "Ruta/spots/creacion",
+  "code": 201,
+  "data": {
+      "code": "3A",
+      "available": 2
+
+
+}
+
+
