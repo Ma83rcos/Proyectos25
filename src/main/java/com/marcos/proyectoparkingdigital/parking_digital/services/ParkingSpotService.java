@@ -1,11 +1,13 @@
 package com.marcos.proyectoparkingdigital.parking_digital.services;
 
+import com.marcos.proyectoparkingdigital.parking_digital.AvailableStatus;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.req.ActualizarParkingSpotDto;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.req.ObtenerParkingSpotsDto;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.req.RegistrarParkingSpotDto;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.res.MensageResponseDto;
 import com.marcos.proyectoparkingdigital.parking_digital.entities.ParkingSpot;
 import com.marcos.proyectoparkingdigital.parking_digital.repositories.ParkingSpotRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Slf4j
 @Service
 public class ParkingSpotService {
     private final ParkingSpotRepository parkingSpotRepository;
@@ -27,11 +29,9 @@ public class ParkingSpotService {
     }
 // convertir de DTO:
 
-
     public List<ObtenerParkingSpotsDto> getAllparkingSpots() {
 
         List<ParkingSpot> parkingSpots = (List<ParkingSpot>) parkingSpotRepository.findAll();
-
 
         List<ObtenerParkingSpotsDto> resultado = parkingSpots.stream()
                 .map(spot -> new ObtenerParkingSpotsDto(
@@ -65,6 +65,39 @@ public class ParkingSpotService {
         ParkingSpot parkingSpot = new ParkingSpot();
         parkingSpot.setCode(spotDto.getCode());
         parkingSpot.setAvailable(spotDto.getAvailable());
+        // if codigo vacio o nulo
+        if(spotDto.getCode() == null || spotDto.getCode().isEmpty()){
+            log.error("El spot no puede ser nulo ni vacio");
+            return new MensageResponseDto(
+                    "El spot no puede ser nulo ni vacio",
+                    400,
+                    "servicio/plaza",
+                    LocalDateTime.now(),
+                    null
+            );
+        }
+        // if limite de caracteres -30
+        if(spotDto.getCode().length() <= 30){
+            log.error("El código de la plaza excede de 30 caracteres");
+            return  new MensageResponseDto(
+                    "El código de la plaza excede de 30 caracteres",
+                    400,
+                    "servicio/plaza",
+                    LocalDateTime.now(),
+                    null
+            );
+        }
+        // if codigo duplicado
+        if(parkingSpotRepository.existsByCode(spotDto.getCode())){
+            log.warn("Codigo duplicado: " + spotDto.getCode());
+            return new MensageResponseDto(
+                    "Codigo ya registrado",
+                    409,
+                    "servicio/plaza",
+                    LocalDateTime.now(),
+                    null
+            );
+        }
 
         //Repositorio
 
@@ -104,13 +137,12 @@ public class ParkingSpotService {
                     LocalDateTime.now(),
                     spotEditada
             );
-
             return respuesta;
-
         }
+        log.warn("La plaza que quieres actualizar no exite");
         return new MensageResponseDto(
-                "Plata no encontrada",
-                200,
+                "Plaza no encontrada",
+                404,
                 "servicio/plaza",
                 LocalDateTime.now(),
                 null
@@ -127,7 +159,7 @@ public class ParkingSpotService {
         Optional<ParkingSpot> parkingSpot = parkingSpotRepository.findById(id);
         if(parkingSpot.isPresent()){
             ParkingSpot spot = parkingSpot.get();
-            spot.setAvailable(3);//Marca como no disponible status 1
+            spot.setAvailable(AvailableStatus.OCCUPIED);//Marca como no disponible status 1
             return parkingSpotRepository.save(spot); //Guarda el cambio
         }
         return null;   //retorna null si no encuentra la plaza

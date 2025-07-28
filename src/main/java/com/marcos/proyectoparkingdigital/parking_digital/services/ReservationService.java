@@ -1,5 +1,7 @@
 package com.marcos.proyectoparkingdigital.parking_digital.services;
 
+import com.marcos.proyectoparkingdigital.parking_digital.AvailableStatus;
+import com.marcos.proyectoparkingdigital.parking_digital.ReservationStatus;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.req.ReservationRequestDto;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.res.MensageResponseDto;
 import com.marcos.proyectoparkingdigital.parking_digital.dto.res.ReservationsResponse;
@@ -103,7 +105,7 @@ public class ReservationService {
         }
 
         // Validar disponibilidad de la plaza
-        if (spot.getAvailable() == 2 || spot.getAvailable() == 3) {
+        if (spot.getAvailable() == AvailableStatus.RESERVED || spot.getAvailable() == AvailableStatus.OCCUPIED) {
             return new MensageResponseDto("La plaza no está disponible", 409, "/api/v1/reservas", LocalDateTime.now(), null);
         }
 
@@ -113,12 +115,12 @@ public class ReservationService {
         reserva.setSpot(spot);
         reserva.setStartTime(dto.getStartTime());
         reserva.setEndTime(dto.getEndTime());
-        reserva.setStatus(1);// reserva activa
+        reserva.setStatus(ReservationStatus.ACTIVE);// reserva activa
 
         Reservation reservaguardada = reservationRepository.save(reserva);
 
         // Marcar plaza como reservada
-        spot.setAvailable(2);
+        spot.setAvailable(AvailableStatus.RESERVED);
         spotRepository.save(spot);
 
         // Construir DTO de respuesta
@@ -159,7 +161,7 @@ public class ReservationService {
         }
         Reservation reserva = resrvaCanc.get();
         // preguntamos si el satsu ya es 0, es decir si ya esta cancelada
-        if(reserva.getStatus() == 0){
+        if(reserva.getStatus() == ReservationStatus.CANCELLED){
             return new MensageResponseDto(
                     "La reserva ya esta cancelada",
                     400,
@@ -169,11 +171,11 @@ public class ReservationService {
             );
         }
         // ponemos setStatus 0 para cancelar esta reserva
-        reserva.setStatus(0);
+        reserva.setStatus(ReservationStatus.CANCELLED);
         reservationRepository.save(reserva);
         //liberar plaza de estacionamiento
         ParkingSpot spot = reserva.getSpot();
-        spot.setAvailable(1);  //1 = disponible
+        spot.setAvailable(AvailableStatus.AVAILABLE);  //1 = disponible
         spotRepository.save(spot);
         //respuesta final
         return  new MensageResponseDto(

@@ -1,14 +1,16 @@
 package com.marcos.proyectoparkingdigital.parking_digital.dto.req;
 
+import com.marcos.proyectoparkingdigital.parking_digital.AvailableStatus;
+
 public class RegistrarParkingSpotDto {
 
     private String code;
-    private int available;
+    private AvailableStatus available;
 
     public RegistrarParkingSpotDto() {
     }
 
-    public RegistrarParkingSpotDto(String code, int available) {
+    public RegistrarParkingSpotDto(String code, AvailableStatus available) {
         this.code = code;
         this.available = available;
     }
@@ -21,11 +23,11 @@ public class RegistrarParkingSpotDto {
         this.code = code;
     }
 
-    public int getAvailable() {
+    public AvailableStatus getAvailable() {
         return available;
     }
 
-    public void setAvailable(int available) {
+    public void setAvailable(AvailableStatus available) {
         this.available = available;
     }
 }

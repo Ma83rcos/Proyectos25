@@ -1,5 +1,6 @@
 package com.marcos.proyectoparkingdigital.parking_digital.entities;
 
+import com.marcos.proyectoparkingdigital.parking_digital.AvailableStatus;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,17 +15,18 @@ public class ParkingSpot {
     @Column(name="code", nullable = false, unique = true)
     private String code;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="available")
-    private int available;
+    private AvailableStatus available;
     // Status:
-    // 1 disponible
-    // 2 reservado
-    // 3 ocupado
+    // 1 disponible-Available
+    // 2 reservado-Reserved
+    // 3 ocupado-Occupied
 
     public ParkingSpot() {
     }
 
-    public ParkingSpot(Long id, String code, int available) {
+    public ParkingSpot(Long id, String code, AvailableStatus available) {
         this.id = id;
         this.code = code;
         this.available = available;
@@ -46,11 +48,11 @@ public class ParkingSpot {
         this.code = code;
     }
 
-    public int getAvailable() {
+    public AvailableStatus getAvailable() {
         return available;
     }
 
-    public void setAvailable(int available) {
+    public void setAvailable(AvailableStatus available) {
         this.available = available;
     }
 

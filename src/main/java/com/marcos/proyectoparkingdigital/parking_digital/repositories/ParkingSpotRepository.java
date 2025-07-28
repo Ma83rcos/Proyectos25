@@ -4,4 +4,5 @@ import com.marcos.proyectoparkingdigital.parking_digital.entities.ParkingSpot;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ParkingSpotRepository extends CrudRepository<ParkingSpot, Long> {
+    boolean existsByCode(String code);
 }

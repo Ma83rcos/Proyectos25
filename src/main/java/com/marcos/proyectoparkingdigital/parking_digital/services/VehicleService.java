@@ -67,11 +67,28 @@ public class VehicleService {
                     null
             );
         }
-
-        // if registro duplicado -> plate debe ser unico en neustra db
-
-
-
+        // if validar limite de caracteres max 50
+        if(vehicle.getPlate().length() <= 50){
+            log.warn("La matricula excede de el numero de caracteres permitido 50");
+            return new MensageResponseDto(
+                    "La matricula excede de el numero de caracteres permitido 50",
+                    400,
+                    "servicio/vehiculo",
+                    LocalDateTime.now(),
+                    null
+            );
+        }
+        // if matricula duplicada -> plate debe ser único en neustra db
+        if(vehicleRepository.existsByPlate(vehicle.getPlate())){
+            log.warn("La matricula introducida ya existe, revisala");
+            return new MensageResponseDto(
+                    "La matricula introducida ya existe, por favor revisela",
+                    409,
+                    "servicio/vehiculo",
+                    LocalDateTime.now(),
+                    null
+            );
+        }
         Vehicle vehicleGuardado = vehicleRepository.save(vehicle);
         MensageResponseDto response = new MensageResponseDto(
                 "vehiculo creado",
@@ -81,11 +98,7 @@ public class VehicleService {
                 vehicleGuardado
         );
         return response;
-
-
-
     }
-
     // Método para actualizar un vehículo existente
     public Vehicle updateVehicle(Long id, ActualizarVehicleDto updatedVehicleDto) {
         Optional<Vehicle>vehicleOptional = vehicleRepository.findById(id);

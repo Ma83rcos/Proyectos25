@@ -1,5 +1,6 @@
 package com.marcos.proyectoparkingdigital.parking_digital.entities;
 
+import com.marcos.proyectoparkingdigital.parking_digital.ReservationStatus;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -27,10 +28,11 @@ public class Reservation {
     @Column(name="price_per_hour")
     private BigDecimal pricePerHour;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="status", nullable = false)
-    private int status;
-    // 1 registro activo
-    // 0 registro eliminado - desactivado
+    private ReservationStatus status;
+    // 1 registro activo-Active
+    // 0 registro eliminado -Cancelled
 
     @ManyToOne
     @JoinColumn(name = "spot_id", nullable = false)
@@ -40,7 +42,7 @@ public class Reservation {
     }
 
     public Reservation(Long id, Vehicle vehicle, LocalDateTime startTime, LocalDateTime endTime,
-                       BigDecimal pricePerHour, int status, ParkingSpot spot) {
+                       BigDecimal pricePerHour, ReservationStatus status, ParkingSpot spot) {
         this.id = id;
         this.vehicle = vehicle;
         this.startTime = startTime;
@@ -50,11 +52,11 @@ public class Reservation {
         this.spot = spot;
     }
 
-    public int getStatus() {
+    public ReservationStatus getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(ReservationStatus status) {
         this.status = status;
     }
 

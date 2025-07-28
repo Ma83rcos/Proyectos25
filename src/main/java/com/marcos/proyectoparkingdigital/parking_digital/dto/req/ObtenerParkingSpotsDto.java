@@ -1,12 +1,14 @@
 package com.marcos.proyectoparkingdigital.parking_digital.dto.req;
 
+import com.marcos.proyectoparkingdigital.parking_digital.AvailableStatus;
+
 public class ObtenerParkingSpotsDto {
     private Long id;
     private String code;
-    private int available;
+    private AvailableStatus available;
     public ObtenerParkingSpotsDto() {
     }
-    public ObtenerParkingSpotsDto(Long id, String code, int available) {
+    public ObtenerParkingSpotsDto(Long id, String code, AvailableStatus available) {
         this.id = id;
         this.code = code;
         this.available = available;
@@ -28,11 +30,11 @@ public class ObtenerParkingSpotsDto {
         this.code = code;
     }
 
-    public int getAvailable() {
+    public AvailableStatus getAvailable() {
         return available;
     }
 
-    public void setAvailable(int available) {
+    public void setAvailable(AvailableStatus available) {
         this.available = available;
     }
 }
